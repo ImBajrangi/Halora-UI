@@ -1,0 +1,6 @@
+{
+  "name": "Halora — Smart Ring Hero",
+  "description": "Sunlit editorial landing hero for the Halora wellness smart ring by Sage Studio, featuring continuous biometric telemetry cards and seamless crossfading ambient video.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

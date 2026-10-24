@@ -1,0 +1,1536 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Halora — Smart Ring Hero</title>
+    <meta
+      name="description"
+      content="Sunlit editorial landing hero for the Halora wellness smart ring by Sage Studio, featuring continuous biometric telemetry cards and seamless crossfading ambient video."
+    />
+    <meta property="og:title" content="Halora — Smart Ring Hero" />
+    <meta
+      property="og:description"
+      content="Sunlit editorial landing hero for the Halora wellness smart ring by Sage Studio, featuring continuous biometric telemetry cards and seamless crossfading ambient video."
+    />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- Fonts: DM Sans (neo-grotesk UI & copy) + Outfit (300/400/500 geometric display numerals) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Outfit:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        /* 2048x1152 reference artboard scale unit with 0.55px floor on desktop */
+        --s: max(0.55px, min(calc(100vw / 2048), calc(100vh / 1152)));
+        --edge: calc(72 * var(--s));
+
+        /* Palette */
+        --bg-sage: #cbcfb8;
+        --ink-forest: #1e3227;
+        --ink-body: #3f5447;
+        --accent-gold: #9b8a3e;
+        --btn-cart: rgba(62, 86, 70, 0.52);
+        --btn-text: #f3f5ec;
+        --glass-fill: rgba(219, 224, 203, 0.46);
+        --glass-fill-hover: rgba(225, 230, 210, 0.62);
+        --glass-border: rgba(30, 50, 39, 0.16);
+        --glass-border-strong: rgba(30, 50, 39, 0.32);
+
+        /* Typography */
+        --font-ui: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        --font-num: 'Outfit', 'DM Sans', sans-serif;
+
+        /* Micro-animation curve */
+        --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background-color: var(--bg-sage);
+        color: var(--ink-forest);
+        font-family: var(--font-ui);
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        user-select: none;
+      }
+
+      /* Pre-entrance gate while waiting for fonts and photo (only when motion is enabled) */
+      html.awaiting-entrance .anim-header,
+      html.awaiting-entrance .eyebrow-dot,
+      html.awaiting-entrance .eyebrow-label,
+      html.awaiting-entrance .hero-paragraph,
+      html.awaiting-entrance .hero-cta-wrap,
+      html.awaiting-entrance .metric-card {
+        opacity: 0;
+      }
+
+      html.awaiting-entrance .headline-line-inner {
+        transform: translateY(110%);
+      }
+
+      /* Root Hero Stage: always fills viewport, zero letterbox bands */
+      .hero-viewport {
+        position: relative;
+        width: 100vw;
+        height: 100vh;
+        height: 100dvh;
+        overflow: hidden;
+        background-color: var(--bg-sage);
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* ==========================================================================
+         HEADER
+         ========================================================================== */
+      .site-header {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 30;
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        align-items: center;
+        padding: var(--edge) var(--edge) 0 var(--edge);
+        transition: padding 0.38s var(--ease-out);
+      }
+
+      .brand-lockup {
+        display: inline-flex;
+        align-items: center;
+        gap: calc(14 * var(--s));
+        color: var(--ink-forest);
+        text-decoration: none;
+        justify-self: start;
+        white-space: nowrap;
+        transition: opacity 0.2s var(--ease-out), transform 0.25s var(--ease-out);
+      }
+
+      .brand-lockup:hover {
+        opacity: 0.84;
+      }
+
+      .brand-lockup:focus-visible {
+        outline: 2px solid var(--ink-forest);
+        outline-offset: 4px;
+        border-radius: 6px;
+      }
+
+      .brand-logo-svg {
+        width: calc(40 * var(--s));
+        height: calc(40 * var(--s));
+        flex-shrink: 0;
+        display: block;
+      }
+
+      .brand-name {
+        font-size: calc(35 * var(--s));
+        font-weight: 500;
+        letter-spacing: -0.025em;
+        line-height: 1;
+        color: var(--ink-forest);
+      }
+
+      /* Centre Nav Links at 22s */
+      .header-nav {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: calc(48 * var(--s));
+        justify-self: center;
+      }
+
+      .nav-link {
+        position: relative;
+        font-size: calc(22 * var(--s));
+        font-weight: 400;
+        line-height: 1.2;
+        letter-spacing: -0.01em;
+        color: var(--ink-forest);
+        text-decoration: none;
+        white-space: nowrap;
+        padding: calc(6 * var(--s)) 0;
+        transition: color 0.2s var(--ease-out), opacity 0.2s var(--ease-out);
+      }
+
+      .nav-link::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 1.5px;
+        background-color: var(--ink-forest);
+        transform: scaleX(0);
+        transform-origin: right center;
+        transition: transform 0.28s var(--ease-out);
+      }
+
+      .nav-link:hover::after,
+      .nav-link[aria-current='page']::after {
+        transform: scaleX(1);
+        transform-origin: left center;
+      }
+
+      .nav-link:focus-visible {
+        outline: 2px solid var(--ink-forest);
+        outline-offset: 4px;
+        border-radius: 4px;
+      }
+
+      /* Right Header Pills */
+      .header-actions {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: calc(14 * var(--s));
+        justify-self: end;
+      }
+
+      .pill-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: calc(10 * var(--s));
+        height: calc(54 * var(--s));
+        min-height: 36px;
+        padding: 0 calc(26 * var(--s));
+        border-radius: 999px;
+        border: 1px solid transparent;
+        font-family: var(--font-ui);
+        font-size: calc(20 * var(--s));
+        font-weight: 500;
+        letter-spacing: -0.01em;
+        line-height: 1;
+        white-space: nowrap;
+        cursor: pointer;
+        text-decoration: none;
+        box-shadow: none;
+        transition:
+          transform 0.22s var(--ease-out),
+          background-color 0.22s var(--ease-out),
+          border-color 0.22s var(--ease-out),
+          opacity 0.22s var(--ease-out);
+      }
+
+      .pill-btn:hover {
+        transform: translateY(-1.5px);
+      }
+
+      .pill-btn:active {
+        transform: translateY(0);
+      }
+
+      .pill-btn:focus-visible {
+        outline: 2px solid var(--ink-forest);
+        outline-offset: 3px;
+      }
+
+      .pill-cart {
+        background-color: var(--btn-cart);
+        color: var(--btn-text);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border-color: rgba(255, 255, 255, 0.14);
+      }
+
+      .pill-cart:hover {
+        background-color: rgba(62, 86, 70, 0.66);
+      }
+
+      .pill-cart-icon {
+        width: calc(19 * var(--s));
+        height: calc(19 * var(--s));
+        min-width: 15px;
+        min-height: 15px;
+        flex-shrink: 0;
+      }
+
+      .pill-dark {
+        background-color: var(--ink-forest);
+        color: var(--btn-text);
+        padding: 0 calc(30 * var(--s));
+      }
+
+      .pill-dark:hover {
+        background-color: #274032;
+      }
+
+      /* Round Burger Button & Frosted Sage Menu Panel (Below 820px) */
+      .burger-btn {
+        display: none;
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background-color: var(--btn-cart);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(30, 50, 39, 0.18);
+        color: var(--btn-text);
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        justify-self: end;
+        box-shadow: none;
+        transition:
+          background-color 0.22s var(--ease-out),
+          transform 0.22s var(--ease-out);
+      }
+
+      .burger-btn:hover {
+        background-color: rgba(62, 86, 70, 0.68);
+      }
+
+      .burger-btn:focus-visible {
+        outline: 2px solid var(--ink-forest);
+        outline-offset: 3px;
+      }
+
+      .burger-lines {
+        width: 18px;
+        height: 12px;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .burger-line {
+        display: block;
+        width: 100%;
+        height: 1.6px;
+        background-color: currentColor;
+        border-radius: 2px;
+        transition: transform 0.26s var(--ease-out), opacity 0.2s var(--ease-out);
+      }
+
+      .burger-btn[aria-expanded='true'] .burger-line:nth-child(1) {
+        transform: translateY(5.2px) rotate(45deg);
+      }
+
+      .burger-btn[aria-expanded='true'] .burger-line:nth-child(2) {
+        opacity: 0;
+      }
+
+      .burger-btn[aria-expanded='true'] .burger-line:nth-child(3) {
+        transform: translateY(-5.2px) rotate(-45deg);
+      }
+
+      .mobile-menu-panel {
+        position: absolute;
+        top: calc(100% + 10px);
+        right: var(--edge);
+        width: min(320px, calc(100vw - 2 * var(--edge)));
+        padding: 20px;
+        border-radius: 20px;
+        background-color: rgba(212, 217, 194, 0.84);
+        backdrop-filter: blur(22px);
+        -webkit-backdrop-filter: blur(22px);
+        border: 1px solid var(--glass-border);
+        box-shadow: none;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transform: translateY(-8px) scale(0.98);
+        transform-origin: top right;
+        transition:
+          opacity 0.26s var(--ease-out),
+          transform 0.26s var(--ease-out),
+          visibility 0s linear 0.26s;
+        z-index: 40;
+      }
+
+      .mobile-menu-panel.is-open {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        transform: translateY(0) scale(1);
+        transition:
+          opacity 0.26s var(--ease-out),
+          transform 0.26s var(--ease-out),
+          visibility 0s linear 0s;
+      }
+
+      .mobile-nav-list {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .mobile-nav-link {
+        font-size: 16px;
+        font-weight: 500;
+        color: var(--ink-forest);
+        text-decoration: none;
+        padding: 10px 12px;
+        border-radius: 10px;
+        transition: background-color 0.2s var(--ease-out);
+      }
+
+      .mobile-nav-link:hover,
+      .mobile-nav-link:focus-visible {
+        background-color: rgba(30, 50, 39, 0.08);
+        outline: none;
+      }
+
+      .mobile-menu-actions {
+        display: grid;
+        grid-template-columns: 1fr 1.3fr;
+        gap: 10px;
+        padding-top: 8px;
+        border-top: 1px solid var(--glass-border);
+      }
+
+      .mobile-menu-actions .pill-btn {
+        height: 44px;
+        font-size: 14px;
+        padding: 0 14px;
+        width: 100%;
+      }
+
+      /* ==========================================================================
+         HERO STAGE BODY (Desktop overlay + responsive grid transitions)
+         ========================================================================== */
+      .hero-stage {
+        position: relative;
+        flex: 1;
+        min-height: 0;
+        width: 100%;
+        height: 100%;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        align-items: center;
+        padding: 0 var(--edge);
+        transition:
+          padding 0.38s var(--ease-out),
+          gap 0.38s var(--ease-out);
+      }
+
+      /* ==========================================================================
+         PHOTO & LOOPING CROSSFADE VIDEO SCENE
+         ========================================================================== */
+      .scene-media {
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        transform: translateX(-50%);
+        height: 100vh;
+        height: 100dvh;
+        width: 100vw;
+        max-width: calc(100dvh * 2.02);
+        z-index: 1;
+        pointer-events: none;
+        overflow: hidden;
+        transition:
+          width 0.4s var(--ease-out),
+          height 0.4s var(--ease-out),
+          transform 0.4s var(--ease-out);
+      }
+
+      /* On ultra-wide screens (> 2:1), stop growing and fade sides into the #CBCFB8 sage wall */
+      @media (min-aspect-ratio: 2/1) {
+        .scene-media {
+          -webkit-mask-image: linear-gradient(
+            90deg,
+            transparent 0%,
+            #000 9%,
+            #000 91%,
+            transparent 100%
+          );
+          mask-image: linear-gradient(
+            90deg,
+            transparent 0%,
+            #000 9%,
+            #000 91%,
+            transparent 100%
+          );
+        }
+      }
+
+      .scene-photo,
+      .video-layer,
+      .scene-video {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center bottom;
+        display: block;
+        pointer-events: none;
+      }
+
+      /* Subtle edge blending so photo wall harmonizes with #CBCFB8 across aspect ratios */
+      .scene-media::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        z-index: 4;
+        background:
+          linear-gradient(90deg, var(--bg-sage) 0%, rgba(203, 207, 184, 0) 7%, rgba(203, 207, 184, 0) 94%, var(--bg-sage) 100%),
+          linear-gradient(180deg, rgba(203, 207, 184, 0.35) 0%, rgba(203, 207, 184, 0) 14%);
+      }
+
+      .video-layer {
+        z-index: 2;
+        opacity: 0;
+        transition: opacity 0.8s ease;
+      }
+
+      .video-layer.is-ready {
+        opacity: 1;
+      }
+
+      .scene-video {
+        will-change: opacity;
+      }
+
+      /* ==========================================================================
+         COPY ZONE (LEFT, VERTICALLY CENTRED)
+         ========================================================================== */
+      .copy-zone {
+        position: relative;
+        z-index: 10;
+        justify-self: start;
+        align-self: center;
+        max-width: calc(640 * var(--s));
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        transition:
+          transform 0.38s var(--ease-out),
+          max-width 0.38s var(--ease-out);
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: calc(12 * var(--s));
+        margin-bottom: calc(22 * var(--s));
+      }
+
+      .eyebrow-dot {
+        width: calc(10 * var(--s));
+        height: calc(10 * var(--s));
+        min-width: 7px;
+        min-height: 7px;
+        border-radius: 50%;
+        background-color: var(--ink-body);
+        display: inline-block;
+        flex-shrink: 0;
+      }
+
+      .eyebrow-label {
+        font-size: calc(21 * var(--s));
+        font-weight: 500;
+        letter-spacing: 0.01em;
+        line-height: 1.2;
+        color: var(--ink-body);
+      }
+
+      .hero-headline {
+        font-size: calc(69 * var(--s));
+        font-weight: 500;
+        line-height: 1.07;
+        letter-spacing: -0.032em;
+        color: var(--ink-forest);
+        margin-bottom: calc(28 * var(--s));
+      }
+
+      .headline-line-mask {
+        display: block;
+        overflow: hidden;
+        padding-bottom: 0.06em;
+        margin-bottom: -0.06em;
+      }
+
+      .headline-line-inner {
+        display: block;
+        will-change: transform;
+      }
+
+      .hero-paragraph {
+        font-size: calc(23 * var(--s));
+        font-weight: 400;
+        line-height: 1.52;
+        letter-spacing: -0.008em;
+        color: var(--ink-body);
+        max-width: calc(520 * var(--s));
+        margin-bottom: calc(40 * var(--s));
+      }
+
+      .hero-cta-wrap {
+        display: inline-flex;
+      }
+
+      .cta-explore {
+        height: calc(62 * var(--s));
+        min-height: 44px;
+        padding: 0 calc(38 * var(--s));
+        font-size: calc(21 * var(--s));
+        font-weight: 500;
+        background-color: var(--ink-forest);
+        color: var(--btn-text);
+        border-radius: 999px;
+      }
+
+      /* ==========================================================================
+         METRICS ZONE (RIGHT, VERTICALLY CENTRED)
+         Three 222x160s glass cards, 20s radius, pale sage translucent fill,
+         hairline forest border, backdrop blur, zero drop shadows
+         ========================================================================== */
+      .metrics-zone {
+        position: relative;
+        z-index: 10;
+        justify-self: end;
+        align-self: center;
+        display: flex;
+        flex-direction: column;
+        gap: calc(22 * var(--s));
+        transition:
+          gap 0.38s var(--ease-out),
+          transform 0.38s var(--ease-out);
+      }
+
+      .metric-card {
+        width: calc(222 * var(--s));
+        height: calc(160 * var(--s));
+        border-radius: calc(20 * var(--s));
+        background-color: var(--glass-fill);
+        border: 1px solid var(--glass-border);
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+        box-shadow: none;
+        padding: calc(20 * var(--s)) calc(24 * var(--s));
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        transition:
+          transform 0.25s var(--ease-out),
+          background-color 0.25s var(--ease-out),
+          border-color 0.25s var(--ease-out);
+      }
+
+      .metric-card:hover {
+        transform: translateY(-2px);
+        background-color: var(--glass-fill-hover);
+        border-color: var(--glass-border-strong);
+      }
+
+      .metric-header {
+        display: flex;
+        align-items: center;
+        gap: calc(9 * var(--s));
+        color: var(--ink-body);
+      }
+
+      .metric-icon {
+        width: calc(17 * var(--s));
+        height: calc(17 * var(--s));
+        min-width: 12px;
+        min-height: 12px;
+        flex-shrink: 0;
+        stroke: var(--ink-body);
+      }
+
+      .metric-label {
+        font-size: calc(14 * var(--s));
+        font-weight: 500;
+        letter-spacing: 0.13em;
+        text-transform: uppercase;
+        line-height: 1;
+        color: var(--ink-body);
+      }
+
+      .metric-value {
+        font-family: var(--font-num);
+        font-size: calc(44 * var(--s));
+        font-weight: 300;
+        line-height: 1;
+        letter-spacing: -0.02em;
+        color: var(--ink-forest);
+        font-variant-numeric: tabular-nums;
+        white-space: nowrap;
+      }
+
+      .metric-sublabel {
+        font-size: calc(13 * var(--s));
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        line-height: 1;
+        color: var(--ink-body);
+      }
+
+      .metric-sublabel.accent-gold {
+        color: var(--accent-gold);
+      }
+
+      /* ==========================================================================
+         RESPONSIVE STATES:
+         1. Landscape below 1200px: fluid three-zone grid (copy | hand | cards),
+            with the hand centred in the middle zone and anchored to bottom edge
+         ========================================================================== */
+      @media (max-width: 1199px) and (orientation: landscape) {
+        :root {
+          --edge: clamp(20px, 3.2vw, 38px);
+        }
+
+        .hero-stage {
+          grid-template-columns: minmax(220px, 1.12fr) minmax(200px, 1fr) auto;
+          grid-template-areas: 'copy media metrics';
+          gap: clamp(14px, 2vw, 28px);
+          padding: 0 var(--edge);
+        }
+
+        .copy-zone {
+          grid-area: copy;
+          max-width: 100%;
+          padding-top: 44px;
+        }
+
+        .scene-media {
+          grid-area: media;
+          position: relative;
+          left: auto;
+          bottom: auto;
+          transform: none;
+          width: 100%;
+          height: 100dvh;
+          max-width: none;
+          align-self: end;
+          -webkit-mask-image: linear-gradient(
+            90deg,
+            transparent 0%,
+            #000 14%,
+            #000 86%,
+            transparent 100%
+          );
+          mask-image: linear-gradient(
+            90deg,
+            transparent 0%,
+            #000 14%,
+            #000 86%,
+            transparent 100%
+          );
+        }
+
+        .scene-photo,
+        .video-layer,
+        .scene-video {
+          object-fit: cover;
+          object-position: 48% bottom;
+        }
+
+        .metrics-zone {
+          grid-area: metrics;
+          padding-top: 44px;
+        }
+      }
+
+      /* ==========================================================================
+         2. Portrait: copy first, then the three cards in a row,
+            then the hand filling the remaining height
+         ========================================================================== */
+      @media (orientation: portrait) {
+        :root {
+          --edge: clamp(18px, 4.5vw, 36px);
+        }
+
+        .site-header {
+          position: relative;
+          padding: var(--edge) var(--edge) 12px var(--edge);
+        }
+
+        .hero-stage {
+          grid-template-columns: 1fr;
+          grid-template-rows: auto auto minmax(180px, 1fr);
+          grid-template-areas:
+            'copy'
+            'metrics'
+            'media';
+          align-items: start;
+          gap: clamp(14px, 2.2vh, 24px);
+          padding: 4px var(--edge) 0 var(--edge);
+        }
+
+        .copy-zone {
+          grid-area: copy;
+          max-width: 100%;
+        }
+
+        .eyebrow {
+          margin-bottom: clamp(8px, 1.2vh, 14px);
+        }
+
+        .eyebrow-label {
+          font-size: clamp(13px, 1.8vh, 16px);
+        }
+
+        .hero-headline {
+          font-size: clamp(32px, 4.6vh, 48px);
+          margin-bottom: clamp(8px, 1.4vh, 16px);
+        }
+
+        .hero-paragraph {
+          font-size: clamp(14px, 1.85vh, 17px);
+          max-width: 56ch;
+          margin-bottom: clamp(12px, 2vh, 22px);
+          line-height: 1.45;
+        }
+
+        .cta-explore {
+          height: clamp(42px, 5.2vh, 50px);
+          padding: 0 24px;
+          font-size: clamp(14px, 1.8vh, 16px);
+        }
+
+        .metrics-zone {
+          grid-area: metrics;
+          width: 100%;
+          justify-self: stretch;
+          display: grid;
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          gap: clamp(8px, 2.4vw, 16px);
+        }
+
+        .metric-card {
+          width: 100%;
+          height: clamp(92px, 12.5vh, 132px);
+          border-radius: 14px;
+          padding: clamp(10px, 1.5vh, 16px) clamp(10px, 2.5vw, 18px);
+        }
+
+        .metric-label {
+          font-size: clamp(10px, 2.4vw, 12px);
+          letter-spacing: 0.1em;
+        }
+
+        .metric-value {
+          font-size: clamp(22px, 5.5vw, 34px);
+        }
+
+        .metric-sublabel {
+          font-size: clamp(9px, 2.2vw, 11px);
+          letter-spacing: 0.11em;
+        }
+
+        .scene-media {
+          grid-area: media;
+          position: relative;
+          left: auto;
+          bottom: auto;
+          transform: none;
+          width: calc(100% + 2 * var(--edge));
+          margin-left: calc(-1 * var(--edge));
+          height: 100%;
+          max-width: none;
+          align-self: stretch;
+          -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 14%, #000 100%);
+          mask-image: linear-gradient(180deg, transparent 0%, #000 14%, #000 100%);
+        }
+
+        .scene-photo,
+        .video-layer,
+        .scene-video {
+          object-fit: cover;
+          object-position: 50% bottom;
+        }
+      }
+
+      /* ==========================================================================
+         3. Below 820px: links & pills fold into frosted sage menu panel behind
+            round burger button
+         ========================================================================== */
+      @media (max-width: 820px) {
+        .site-header {
+          grid-template-columns: 1fr auto;
+        }
+
+        .header-nav,
+        .header-actions {
+          display: none;
+        }
+
+        .burger-btn {
+          display: inline-flex;
+        }
+
+        .brand-logo-svg {
+          width: 28px;
+          height: 28px;
+        }
+
+        .brand-name {
+          font-size: 24px;
+        }
+      }
+
+      /* ==========================================================================
+         REDUCED MOTION: no entrance, no transitions, no background video
+         ========================================================================== */
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.001ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.001ms !important;
+          scroll-behavior: auto !important;
+        }
+
+        html.awaiting-entrance .anim-header,
+        html.awaiting-entrance .eyebrow-dot,
+        html.awaiting-entrance .eyebrow-label,
+        html.awaiting-entrance .hero-paragraph,
+        html.awaiting-entrance .hero-cta-wrap,
+        html.awaiting-entrance .metric-card {
+          opacity: 1 !important;
+        }
+
+        html.awaiting-entrance .headline-line-inner {
+          transform: none !important;
+        }
+
+        .video-layer {
+          display: none !important;
+        }
+      }
+    </style>
+
+    <script>
+      // Gate initial styles for Web Animations entrance if user has not requested reduced motion
+      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        document.documentElement.classList.add('awaiting-entrance');
+      }
+    </script>
+  </head>
+  <body>
+    <div class="hero-viewport" data-testid="halora-hero">
+      <!-- HEADER -->
+      <header class="site-header">
+        <!-- Left: Six-petal dashed circle logo + Halora at 35s -->
+        <a href="#top" class="brand-lockup anim-header" aria-label="Halora Home">
+          <svg
+            class="brand-logo-svg"
+            viewBox="0 0 40 40"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+          >
+            <!-- Outer dashed circle -->
+            <circle
+              cx="20"
+              cy="20"
+              r="17.5"
+              stroke="#1E3227"
+              stroke-width="1.5"
+              stroke-dasharray="3.2 2.8"
+            />
+            <!-- Six geometric petals inside the circle -->
+            <g stroke="#1E3227" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 20 C17.2 14.2, 17.2 8.8, 20 4.5 C22.8 8.8, 22.8 14.2, 20 20 Z" />
+              <path
+                d="M20 20 C17.2 14.2, 17.2 8.8, 20 4.5 C22.8 8.8, 22.8 14.2, 20 20 Z"
+                transform="rotate(60 20 20)"
+              />
+              <path
+                d="M20 20 C17.2 14.2, 17.2 8.8, 20 4.5 C22.8 8.8, 22.8 14.2, 20 20 Z"
+                transform="rotate(120 20 20)"
+              />
+              <path
+                d="M20 20 C17.2 14.2, 17.2 8.8, 20 4.5 C22.8 8.8, 22.8 14.2, 20 20 Z"
+                transform="rotate(180 20 20)"
+              />
+              <path
+                d="M20 20 C17.2 14.2, 17.2 8.8, 20 4.5 C22.8 8.8, 22.8 14.2, 20 20 Z"
+                transform="rotate(240 20 20)"
+              />
+              <path
+                d="M20 20 C17.2 14.2, 17.2 8.8, 20 4.5 C22.8 8.8, 22.8 14.2, 20 20 Z"
+                transform="rotate(300 20 20)"
+              />
+            </g>
+            <circle cx="20" cy="20" r="2.2" fill="#1E3227" />
+          </svg>
+          <span class="brand-name">Halora</span>
+        </a>
+
+        <!-- Centre: Links at 22s -->
+        <nav class="header-nav" aria-label="Primary Navigation">
+          <a href="#technology" class="nav-link anim-header">Technology</a>
+          <a href="#health" class="nav-link anim-header">Health</a>
+          <a href="#activity" class="nav-link anim-header">Activity</a>
+          <a href="#insights" class="nav-link anim-header">Insights</a>
+        </nav>
+
+        <!-- Right: Cart pill + Shop the Ring pill -->
+        <div class="header-actions">
+          <button type="button" class="pill-btn pill-cart anim-header" aria-label="Cart">
+            <svg
+              class="pill-cart-icon"
+              viewBox="0 0 20 20"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true"
+            >
+              <path
+                d="M2.5 3.5H4.4L6.2 12.2C6.34 12.88 6.94 13.36 7.64 13.36H15.1C15.76 13.36 16.34 12.92 16.52 12.28L18 6.5H5.1"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <circle cx="8" cy="16.5" r="1.25" fill="currentColor" />
+              <circle cx="14.5" cy="16.5" r="1.25" fill="currentColor" />
+            </svg>
+            <span>Cart</span>
+          </button>
+          <a href="#shop" class="pill-btn pill-dark anim-header">Shop the Ring</a>
+        </div>
+
+        <!-- Below 820px: Round Burger Button -->
+        <button
+          type="button"
+          class="burger-btn anim-header"
+          id="burger-toggle"
+          aria-label="Toggle Navigation Menu"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
+        >
+          <span class="burger-lines" aria-hidden="true">
+            <span class="burger-line"></span>
+            <span class="burger-line"></span>
+            <span class="burger-line"></span>
+          </span>
+        </button>
+
+        <!-- Below 820px: Frosted Sage Menu Panel -->
+        <div class="mobile-menu-panel" id="mobile-menu" role="region" aria-label="Mobile Navigation">
+          <nav class="mobile-nav-list" aria-label="Mobile Primary Links">
+            <a href="#technology" class="mobile-nav-link">Technology</a>
+            <a href="#health" class="mobile-nav-link">Health</a>
+            <a href="#activity" class="mobile-nav-link">Activity</a>
+            <a href="#insights" class="mobile-nav-link">Insights</a>
+          </nav>
+          <div class="mobile-menu-actions">
+            <button type="button" class="pill-btn pill-cart" aria-label="Mobile Cart">
+              <svg
+                class="pill-cart-icon"
+                viewBox="0 0 20 20"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+              >
+                <path
+                  d="M2.5 3.5H4.4L6.2 12.2C6.34 12.88 6.94 13.36 7.64 13.36H15.1C15.76 13.36 16.34 12.92 16.52 12.28L18 6.5H5.1"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <circle cx="8" cy="16.5" r="1.25" fill="currentColor" />
+                <circle cx="14.5" cy="16.5" r="1.25" fill="currentColor" />
+              </svg>
+              <span>Cart</span>
+            </button>
+            <a href="#shop" class="pill-btn pill-dark">Shop the Ring</a>
+          </div>
+        </div>
+      </header>
+
+      <!-- MAIN STAGE -->
+      <main class="hero-stage">
+        <!-- COPY (Left, vertically centred; first in Portrait) -->
+        <section class="copy-zone" aria-labelledby="hero-heading">
+          <div class="eyebrow">
+            <span class="eyebrow-dot" id="eyebrow-dot" aria-hidden="true"></span>
+            <span class="eyebrow-label" id="eyebrow-label">Tracking 24/7</span>
+          </div>
+
+          <h1 class="hero-headline" id="hero-heading">
+            <span class="headline-line-mask">
+              <span class="headline-line-inner">Know Your Body.</span>
+            </span>
+            <span class="headline-line-mask">
+              <span class="headline-line-inner">Move With It.</span>
+            </span>
+          </h1>
+
+          <p class="hero-paragraph" id="hero-paragraph">
+            Sleep, recovery, stress, heart rate and activity — tracked continuously and turned into
+            insights you can actually use.
+          </p>
+
+          <div class="hero-cta-wrap" id="hero-cta-wrap">
+            <a href="#explore" class="pill-btn cta-explore">Explore the Ring</a>
+          </div>
+        </section>
+
+        <!-- METRICS (Right, vertically centred; second row in Portrait) -->
+        <aside class="metrics-zone" aria-label="Live Biometric Metrics">
+          <!-- Card 1: SLEEP -->
+          <article class="metric-card">
+            <div class="metric-header">
+              <svg
+                class="metric-icon"
+                viewBox="0 0 18 18"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+              >
+                <path
+                  d="M14.5 11.2A6.2 6.2 0 0 1 6.8 3.5a6.2 6.2 0 1 0 7.7 7.7Z"
+                  stroke="currentColor"
+                  stroke-width="1.4"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+              <span class="metric-label">SLEEP</span>
+            </div>
+            <div class="metric-value">7h 42m</div>
+            <div class="metric-sublabel accent-gold">GOOD</div>
+          </article>
+
+          <!-- Card 2: CALORIES -->
+          <article class="metric-card">
+            <div class="metric-header">
+              <svg
+                class="metric-icon"
+                viewBox="0 0 18 18"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+              >
+                <path
+                  d="M9.4 2.2C9.4 2.2 13.8 5.6 13.8 10.1C13.8 13.1 11.6 15.5 9 15.5C6.4 15.5 4.2 13.1 4.2 10.1C4.2 7.8 5.7 5.7 6.8 4.6C6.8 6.3 7.9 7.2 7.9 7.2C7.5 4.9 9.4 2.2 9.4 2.2Z"
+                  stroke="currentColor"
+                  stroke-width="1.4"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+              <span class="metric-label">CALORIES</span>
+            </div>
+            <div class="metric-value">1642</div>
+            <div class="metric-sublabel accent-gold">KCAL</div>
+          </article>
+
+          <!-- Card 3: HRV -->
+          <article class="metric-card">
+            <div class="metric-header">
+              <svg
+                class="metric-icon"
+                viewBox="0 0 18 18"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+              >
+                <path
+                  d="M1.8 9.2H5.1L7.1 4.5L10.3 13.5L12.5 9.2H16.2"
+                  stroke="currentColor"
+                  stroke-width="1.4"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+              <span class="metric-label">HRV</span>
+            </div>
+            <div class="metric-value">68</div>
+            <div class="metric-sublabel">MS</div>
+          </article>
+        </aside>
+
+        <!-- PHOTO & LOOPING CROSSFADE VIDEO SCENE (Centre; third row in Portrait) -->
+        <div class="scene-media" id="scene-media">
+          <picture>
+            <source srcset="/hero-poster.webp" type="image/webp" />
+            <img
+              class="scene-photo"
+              id="hero-photo"
+              src="/hero-poster.jpg"
+              width="1920"
+              height="1084"
+              alt="Hand rising against a sunlit pale sage wall with the rose-gold Halora smart ring floating between its fingers"
+              fetchpriority="high"
+            />
+          </picture>
+          <div class="video-layer" id="video-layer" aria-hidden="true"></div>
+        </div>
+      </main>
+    </div>
+
+    <script>
+      (function () {
+        const VIDEO_URL =
+          'https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/e6d15706-f42b-400d-beda-75840834e8bc.mp4';
+        const CROSSFADE_SECONDS = 1.0;
+
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+        const photoEl = document.getElementById('hero-photo');
+        const videoLayer = document.getElementById('video-layer');
+        const burgerBtn = document.getElementById('burger-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        /* ----------------------------------------------------------------------
+           1. Mobile Burger Menu Toggle (< 820px)
+           ---------------------------------------------------------------------- */
+        if (burgerBtn && mobileMenu) {
+          const closeMobileMenu = (restoreFocus) => {
+            burgerBtn.setAttribute('aria-expanded', 'false');
+            mobileMenu.classList.remove('is-open');
+            if (restoreFocus) burgerBtn.focus();
+          };
+
+          burgerBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const isOpen = burgerBtn.getAttribute('aria-expanded') === 'true';
+            if (isOpen) {
+              closeMobileMenu(false);
+            } else {
+              burgerBtn.setAttribute('aria-expanded', 'true');
+              mobileMenu.classList.add('is-open');
+            }
+          });
+
+          document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && burgerBtn.getAttribute('aria-expanded') === 'true') {
+              closeMobileMenu(true);
+            }
+          });
+
+          document.addEventListener('click', (e) => {
+            if (
+              burgerBtn.getAttribute('aria-expanded') === 'true' &&
+              !mobileMenu.contains(e.target) &&
+              e.target !== burgerBtn
+            ) {
+              closeMobileMenu(false);
+            }
+          });
+
+          mobileMenu.querySelectorAll('a, button').forEach((item) => {
+            item.addEventListener('click', () => closeMobileMenu(false));
+          });
+
+          window.addEventListener('resize', () => {
+            if (window.innerWidth > 820 && burgerBtn.getAttribute('aria-expanded') === 'true') {
+              closeMobileMenu(false);
+            }
+          });
+        }
+
+        /* ----------------------------------------------------------------------
+           2. Wait for Fonts + Hero Photo Ready, then run single Web Animations
+              entrance timeline with backwards fill and self-cancel on completion
+           ---------------------------------------------------------------------- */
+        function waitForPhoto(img) {
+          if (!img) return Promise.resolve();
+          if (img.complete && img.naturalWidth > 0) {
+            return typeof img.decode === 'function' ? img.decode().catch(() => {}) : Promise.resolve();
+          }
+          return new Promise((resolve) => {
+            const done = () => resolve();
+            img.addEventListener('load', done, { once: true });
+            img.addEventListener('error', done, { once: true });
+          });
+        }
+
+        function runEntranceTimeline() {
+          if (prefersReducedMotion.matches) {
+            document.documentElement.classList.remove('awaiting-entrance');
+            return;
+          }
+
+          const easeOut = 'cubic-bezier(0.22, 1, 0.36, 1)';
+          const animations = [];
+
+          // A. Header items drop in from the top, staggered
+          const headerItems = Array.from(document.querySelectorAll('.anim-header')).filter(
+            (el) => window.getComputedStyle(el).display !== 'none'
+          );
+          headerItems.forEach((el, idx) => {
+            animations.push(
+              el.animate(
+                [
+                  { opacity: 0, transform: 'translateY(-22px)' },
+                  { opacity: 1, transform: 'translateY(0px)' },
+                ],
+                {
+                  duration: 620,
+                  delay: idx * 55,
+                  easing: easeOut,
+                  fill: 'backwards',
+                }
+              )
+            );
+          });
+
+          // B. Tracking dot switches on with a circular clip, and its label follows
+          const dotEl = document.getElementById('eyebrow-dot');
+          const labelEl = document.getElementById('eyebrow-label');
+          if (dotEl) {
+            animations.push(
+              dotEl.animate(
+                [
+                  { opacity: 0, clipPath: 'circle(0% at 50% 50%)' },
+                  { opacity: 1, clipPath: 'circle(50% at 50% 50%)' },
+                ],
+                {
+                  duration: 460,
+                  delay: 220,
+                  easing: easeOut,
+                  fill: 'backwards',
+                }
+              )
+            );
+          }
+          if (labelEl) {
+            animations.push(
+              labelEl.animate(
+                [
+                  { opacity: 0, transform: 'translateX(-10px)' },
+                  { opacity: 1, transform: 'translateX(0px)' },
+                ],
+                {
+                  duration: 520,
+                  delay: 320,
+                  easing: easeOut,
+                  fill: 'backwards',
+                }
+              )
+            );
+          }
+
+          // C. Each headline line rises inside its own mask
+          const headlineLines = document.querySelectorAll('.headline-line-inner');
+          headlineLines.forEach((line, idx) => {
+            animations.push(
+              line.animate(
+                [
+                  { transform: 'translateY(108%)' },
+                  { transform: 'translateY(0%)' },
+                ],
+                {
+                  duration: 740,
+                  delay: 390 + idx * 110,
+                  easing: easeOut,
+                  fill: 'backwards',
+                }
+              )
+            );
+          });
+
+          // D. Paragraph and CTA settle in
+          const paragraphEl = document.getElementById('hero-paragraph');
+          const ctaWrapEl = document.getElementById('hero-cta-wrap');
+          if (paragraphEl) {
+            animations.push(
+              paragraphEl.animate(
+                [
+                  { opacity: 0, transform: 'translateY(18px)' },
+                  { opacity: 1, transform: 'translateY(0px)' },
+                ],
+                {
+                  duration: 640,
+                  delay: 610,
+                  easing: easeOut,
+                  fill: 'backwards',
+                }
+              )
+            );
+          }
+          if (ctaWrapEl) {
+            animations.push(
+              ctaWrapEl.animate(
+                [
+                  { opacity: 0, transform: 'translateY(18px)' },
+                  { opacity: 1, transform: 'translateY(0px)' },
+                ],
+                {
+                  duration: 640,
+                  delay: 710,
+                  easing: easeOut,
+                  fill: 'backwards',
+                }
+              )
+            );
+          }
+
+          // E. Three glass cards rise one after another
+          const metricCards = document.querySelectorAll('.metric-card');
+          metricCards.forEach((card, idx) => {
+            animations.push(
+              card.animate(
+                [
+                  { opacity: 0, transform: 'translateY(28px)' },
+                  { opacity: 1, transform: 'translateY(0px)' },
+                ],
+                {
+                  duration: 680,
+                  delay: 520 + idx * 105,
+                  easing: easeOut,
+                  fill: 'backwards',
+                }
+              )
+            );
+          });
+
+          // Remove pre-entrance gate now that backwards-fill animations are active
+          document.documentElement.classList.remove('awaiting-entrance');
+
+          // Cancel all animations once finished so page returns strictly to authored styles
+          Promise.all(animations.map((a) => a.finished.catch(() => {}))).then(() => {
+            animations.forEach((a) => {
+              try {
+                a.cancel();
+              } catch (_) {}
+            });
+          });
+        }
+
+        const fontsReady =
+          document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve();
+
+        Promise.all([fontsReady, waitForPhoto(photoEl)]).then(() => {
+          runEntranceTimeline();
+          initCrossfadeVideo();
+        });
+
+        /* ----------------------------------------------------------------------
+           3. Background Video: Muted, seamless 1-second loop crossfade
+              (Last 1s crossfades into first 1s; fades in over 0.8s once first frame ready)
+           ---------------------------------------------------------------------- */
+        function createVideoNode() {
+          const v = document.createElement('video');
+          v.className = 'scene-video';
+          v.src = VIDEO_URL;
+          v.muted = true;
+          v.defaultMuted = true;
+          v.playsInline = true;
+          v.preload = 'auto';
+          v.setAttribute('muted', '');
+          v.setAttribute('playsinline', '');
+          return v;
+        }
+
+        function initCrossfadeVideo() {
+          if (!videoLayer || prefersReducedMotion.matches) return;
+
+          const videoA = createVideoNode();
+          const videoB = createVideoNode();
+
+          videoA.style.zIndex = '1';
+          videoA.style.opacity = '1';
+
+          videoB.style.zIndex = '2';
+          videoB.style.opacity = '0';
+
+          videoLayer.appendChild(videoA);
+          videoLayer.appendChild(videoB);
+
+          let active = videoA;
+          let standby = videoB;
+          let isCrossfading = false;
+          let rafId = null;
+          let hasRevealedLayer = false;
+
+          const revealWhenFirstFrameReady = () => {
+            if (hasRevealedLayer) return;
+            hasRevealedLayer = true;
+            videoLayer.classList.add('is-ready');
+          };
+
+          if ('requestVideoFrameCallback' in HTMLVideoElement.prototype) {
+            videoA.requestVideoFrameCallback(revealWhenFirstFrameReady);
+          } else {
+            videoA.addEventListener('loadeddata', revealWhenFirstFrameReady, { once: true });
+          }
+
+          function tick() {
+            if (prefersReducedMotion.matches) return;
+
+            const duration = active.duration;
+            if (Number.isFinite(duration) && duration > CROSSFADE_SECONDS) {
+              const fadeStart = duration - CROSSFADE_SECONDS;
+              const now = active.currentTime;
+
+              if (now >= fadeStart) {
+                if (!isCrossfading) {
+                  isCrossfading = true;
+                  standby.currentTime = 0;
+                  standby.style.zIndex = '2';
+                  active.style.zIndex = '1';
+                  standby.play().catch(() => {});
+                }
+
+                const progress = Math.min(1, Math.max(0, (now - fadeStart) / CROSSFADE_SECONDS));
+                standby.style.opacity = progress.toFixed(3);
+
+                if (progress >= 0.995 || active.ended) {
+                  // Swap roles: standby becomes the solid base layer at ~1.0s
+                  standby.style.opacity = '1';
+                  standby.style.zIndex = '1';
+
+                  active.pause();
+                  active.currentTime = 0;
+                  active.style.opacity = '0';
+                  active.style.zIndex = '2';
+
+                  const temp = active;
+                  active = standby;
+                  standby = temp;
+                  isCrossfading = false;
+                }
+              }
+            }
+
+            rafId = requestAnimationFrame(tick);
+          }
+
+          videoA
+            .play()
+            .then(() => {
+              revealWhenFirstFrameReady();
+              rafId = requestAnimationFrame(tick);
+            })
+            .catch(() => {
+              // Autoplay blocked or network unavailable: gracefully remain on hero photo
+            });
+
+          prefersReducedMotion.addEventListener('change', (e) => {
+            if (e.matches) {
+              if (rafId) cancelAnimationFrame(rafId);
+              videoA.pause();
+              videoB.pause();
+              videoLayer.classList.remove('is-ready');
+            }
+          });
+        }
+      })();
+    </script>
+  </body>
+</html>
